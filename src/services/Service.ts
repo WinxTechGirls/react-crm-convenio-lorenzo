@@ -1,21 +1,29 @@
-
 import axios from "axios"
 
 const api = axios.create({
-  baseURL: ''
+    baseURL: 'https://projeto-convenio-crm.onrender.com'
 })
 
-export const cadastrarUsuario = async (url: string, dados: any, setUsuario: Function) => {
-  const resposta = await api.post(url, dados);
-  setUsuario(resposta.data);
+
+export const cadastrarUsuario = async (url: string, dados: Object, setDados: Function) => {
+    const resposta = await api.post(url, dados)
+    setDados(resposta.data)
 }
 
-export const atualizarUsuario = async (url: string, dados: any) => {
-  const resposta = await api.put(url, dados);
-  return resposta.data;
-};
+export const buscar = async (url: string, setDados: Function) => {
+    const resposta = await api.get(url)
+    setDados(resposta.data)
+}
+export const cadastrar = async (url: string, dados: Object, setDados: Function) => {
+    const resposta = await api.post(url, dados)
+    setDados(resposta.data)
+}
 
-export const deletarUsuario = async (url: string) => {
-  const resposta = await api.delete(url);
-  return resposta.data;
-};
+export const atualizar = async (url: string, dados: Object, setDados: Function) => {
+    const resposta = await api.put(url, dados)
+    setDados(resposta.data)
+}
+
+export const deletar = async (url: string) => {
+    await api.delete(url)
+}

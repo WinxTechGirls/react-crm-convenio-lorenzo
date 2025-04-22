@@ -1,7 +1,8 @@
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Footer from './components/footer/Footer'
 import Navbar from './components/navbar/Navbar'
-
+import Home from './pages/home/Home'
 import './App.css'
 import Cadastro from './pages/cadastro/Cadastro'
 
@@ -12,7 +13,8 @@ function App() {
           <Navbar />
           <div className="min-h-[80vh]">
             <Routes>
-            <Route path="/cadastro" element={<Cadastro />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
             </Routes>
           </div>
           <Footer />

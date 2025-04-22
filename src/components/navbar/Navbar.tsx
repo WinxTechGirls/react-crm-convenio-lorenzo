@@ -12,8 +12,7 @@ function Navbar() {
                     <div className='flex gap-4'>
                         Convenios 
                         Coberturas 
-                        
-                        <Link to='/cadastro' className='hover:underline'>Cadastro</Link>
+                        Cadastrar 
                     </div>
                 </div>
             </div>
