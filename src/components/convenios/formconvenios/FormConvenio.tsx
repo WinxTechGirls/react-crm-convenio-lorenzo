@@ -63,13 +63,14 @@ function FormConvenio() {
             [e.target.name]: e.target.value,
             tipo: tipo
         });
+        console.log(convenio)
     }
 
     function retornar() {
         navigate('/convenios');
     }
 
-    async function gerarNovaConvenio(e: ChangeEvent<HTMLFormElement>) {
+    async function gerarNovoConvenio(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault()
         setIsLoading(true)
 
@@ -86,7 +87,7 @@ function FormConvenio() {
             try {
                 await cadastrar(`/convenios`, convenio, setConvenio)
                 alert('Convenio cadastrada com sucesso');
-
+                console.log(convenio);
             } catch (error: any) {
                 alert('Erro ao cadastrar a Convenio');
             }
@@ -96,6 +97,8 @@ function FormConvenio() {
         retornar()
     }
 
+    const carregandoTipo = tipo.nome === '';
+
 
     return (
         <div className="container flex flex-col mx-auto items-center">
@@ -103,13 +106,13 @@ function FormConvenio() {
                 {id !== undefined ? 'Editar Convenio' : 'Cadastrar Convenio'}
             </h1>
 
-            <form className="flex flex-col w-1/2 gap-4" onSubmit={gerarNovaConvenio}>
+            <form className="flex flex-col w-1/2 gap-4" onSubmit={gerarNovoConvenio}>
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="nome">Título da Convenio</label>
+                    <label htmlFor="nome">Título do Novo Convenio</label>
                     <input
                         type="text"
                         placeholder="Nome"
-                        name="nom"
+                        name="nome"
                         required
                         className="border-2 border-slate-700 rounded p-2"
                         value={convenio.nome}
@@ -117,11 +120,11 @@ function FormConvenio() {
                     />
                 </div>
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="titulo">Texto da Convenio</label>
+                    <label htmlFor="titulo">Cobertura</label>
                     <input
                         type="text"
                         placeholder="Texto"
-                        name="texto"
+                        name="cobertura"
                         required
                         className="border-2 border-slate-700 rounded p-2"
                         value={convenio.cobertura}
@@ -129,11 +132,11 @@ function FormConvenio() {
                     />
                 </div>
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="titulo">Texto da Convenio</label>
+                    <label htmlFor="titulo">Acomodação</label>
                     <input
                         type="text"
                         placeholder="Texto"
-                        name="texto"
+                        name="acomodacao"
                         required
                         className="border-2 border-slate-700 rounded p-2"
                         value={convenio.acomodacao}
@@ -142,11 +145,11 @@ function FormConvenio() {
                 </div>
                 
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="titulo">Texto da Convenio</label>
+                    <label htmlFor="titulo">Preço</label>
                     <input
-                        type="text"
+                        type="number"
                         placeholder="Texto"
-                        name="texto"
+                        name="preco"
                         required
                         className="border-2 border-slate-700 rounded p-2"
                         value={convenio.preco}
@@ -154,7 +157,7 @@ function FormConvenio() {
                     />
                 </div>
                 <div className="flex flex-col gap-2">
-                    <p>Tipo da Convenio</p>
+                    <p>Tipo de Cobertura do Convenio</p>
                     <select name="tipo" id="tipo" className='border p-2 border-slate-800 rounded'
                         onChange={(e) => buscarTipoPorId(e.currentTarget.value)}
                     >

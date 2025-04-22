@@ -41,6 +41,9 @@ if (isLoading) {
 return (
     <>
         <div className="flex justify-center w-full my-4">
+            <Link to='/cadastrarconvenio' className='hover:underline'>Cadastrar Novo Convenio</Link>
+        </div>
+        <div className="flex justify-center w-full my-4">
             <div className="container flex flex-col">
                 {convenios.length === 0 && !isLoading ? (
                 <p className="text-center text-xl">Nenhum convênio encontrado.</p>
@@ -53,9 +56,7 @@ return (
                 )}
             </div>
         </div>
-        <div>
-            <Link to='/cadastrarconvenio' className='hover:underline'>Cadastrar Novo Convenio</Link>
-        </div>
+        
     </>
 );
 }

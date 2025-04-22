@@ -1,13 +1,15 @@
 
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Usuario from '../../models/Usuario'
 import './Cadastro.css'
 import { RotatingLines } from 'react-loader-spinner'
-import { atualizarUsuario, cadastrarUsuario, deletarUsuario, } from '../../services/Service'
+import { atualizar, buscar, cadastrar} from '../../services/Service'
+import Convenio from '../../models/Convenio'
 
 function Cadastro() {
   const navigate = useNavigate()
+  const [convenios, setConvenios] = useState<Convenio[]>([])
   const { id } = useParams()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [usuario, setUsuario] = useState<Usuario>({
@@ -16,17 +18,33 @@ function Cadastro() {
     email: '',
     senha: '',
     precoPagar: 0,
+    convenio: undefined,
     codigo: '',
-    convenio: '',
     foto: ''
   })
 
-  function retornar() {
-    navigate('/login')
-  }
+  const [convenio, setConvenio] = useState<Convenio>({ 
+    id: 0,
+    nome: '',
+    preco: 0,
+    cobertura: '',
+    acomodacao : '',
+    tipo: null,})
+
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setUsuario({ ...usuario, [e.target.name]: e.target.value })
+  }
+
+  async function buscarConvenios() {
+    try {
+        await buscar('/convenios', setConvenios)
+    } catch (error: any) {
+        alert('Convenios indisponíveis!')
+    }
+}
+  function retornar() {
+    navigate('/')
   }
 
   async function cadastrarNovoUsuario(e: FormEvent<HTMLFormElement>) {
@@ -34,13 +52,12 @@ function Cadastro() {
     setIsLoading(true)
     try {
       if (id) {
-        await atualizarUsuario(`/usuarios/atualizar`, usuario)
+        await atualizar(`/usuarios/atualizar`, usuario, setUsuario)
         alert('Usuário atualizado com sucesso!')
       } else {
-        await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuario)
+        await cadastrar(`/usuarios/cadastrar`, usuario, setUsuario)
         alert('Usuário cadastrado com sucesso!')
       }
-      navigate('/login')
     } catch (error) {
       alert('Erro ao cadastrar/atualizar usuário!')
     }
@@ -51,14 +68,25 @@ function Cadastro() {
     e.preventDefault()
     setIsLoading(true)
     try {
-      await deletarUsuario(`/usuarios/deletar/${id}`)
+      await deletar(`/usuarios/deletar/${id}`)
       alert('Usuário deletado com sucesso!')
-      navigate('/login')
     } catch (error) {
       alert('Erro ao deletar usuário!')
     }
     setIsLoading(false)
   }
+
+  async function buscarConvenioPorId(id: string) {
+          try {
+              await buscar(`/convenios/${id}`, setConvenio)
+          } catch (error: any) {
+              alert("Convenio não encontrado")
+          }
+      }
+
+    useEffect(() => {
+      buscarConvenios()
+    }, [id])
 
   return (
     <>
@@ -78,17 +106,28 @@ function Cadastro() {
             <label htmlFor="senha">Senha</label>
             <input type="password" id="senha" name="senha" placeholder="Senha" className="border-2 border-slate-700 rounded p-2" value={usuario.senha} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
           </div>
-          <div className="flex flex-col w-full">
-            <label htmlFor="precoPagar">Preço a Pagar</label>
-            <input type="number" id="precoPagar" name="precoPagar" placeholder="Preço a Pagar" className="border-2 border-slate-700 rounded p-2" value={usuario.precoPagar} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+           <div className="flex flex-col w-full">
+            <label htmlFor="convenio">Convênio</label>
+            <select name="convenio" id="convenio" className='border p-2 border-slate-800 rounded'
+                onChange={(e) => buscarConvenioPorId(e.currentTarget.value)}
+            >
+                <option value="" selected disabled>Selecione um Convenio</option>
+
+                {convenios.map((convenio) => (
+                    <>
+                        <option value={convenio.id!} >{convenio.nome}</option>
+                    </>
+                ))}
+
+            </select>
           </div>
           <div className="flex flex-col w-full">
            <label htmlFor="codigo">Código</label>
            <input type="text" id="codigo" name="codigo" placeholder="Código" className="border-2 border-slate-700 rounded p-2" value={usuario.codigo} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
           </div>
-           <div className="flex flex-col w-full">
-            <label htmlFor="convenio">Convênio</label>
-            <input type="text" id="convenio" name="convenio" placeholder="Convênio" className="border-2 border-slate-700 rounded p-2" value={usuario.convenio} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+          <div className="flex flex-col w-full">
+            <label htmlFor="precoPagar">Preço a Pagar</label>
+            <input type="number" id="precoPagar" name="precoPagar" placeholder="Preço a Pagar" className="border-2 border-slate-700 rounded p-2" value={usuario.precoPagar} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
           </div>
           <div className="flex flex-col w-full">
             <label htmlFor="foto">Foto</label>
