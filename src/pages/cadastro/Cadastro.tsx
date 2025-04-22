@@ -1,0 +1,127 @@
+
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import Usuario from '../../models/Usuario'
+import './Cadastro.css'
+import { RotatingLines } from 'react-loader-spinner'
+import { atualizarUsuario, cadastrarUsuario, deletarUsuario, } from '../../services/Service'
+
+function Cadastro() {
+  const navigate = useNavigate()
+  const { id } = useParams()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [usuario, setUsuario] = useState<Usuario>({
+    id: null,
+    nome: '',
+    email: '',
+    senha: '',
+    precoPagar: 0,
+    codigo: '',
+    convenio: '',
+    foto: ''
+  })
+
+  function retornar() {
+    navigate('/login')
+  }
+
+  function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+    setUsuario({ ...usuario, [e.target.name]: e.target.value })
+  }
+
+  async function cadastrarNovoUsuario(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setIsLoading(true)
+    try {
+      if (id) {
+        await atualizarUsuario(`/usuarios/atualizar`, usuario)
+        alert('Usuário atualizado com sucesso!')
+      } else {
+        await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuario)
+        alert('Usuário cadastrado com sucesso!')
+      }
+      navigate('/login')
+    } catch (error) {
+      alert('Erro ao cadastrar/atualizar usuário!')
+    }
+    setIsLoading(false)
+  }
+
+  async function deletar(e: any) {
+    e.preventDefault()
+    setIsLoading(true)
+    try {
+      await deletarUsuario(`/usuarios/deletar/${id}`)
+      alert('Usuário deletado com sucesso!')
+      navigate('/login')
+    } catch (error) {
+      alert('Erro ao deletar usuário!')
+    }
+    setIsLoading(false)
+  }
+
+  return (
+    <>
+      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold">
+        <div className="fundoCadastro hidden lg:block"></div>
+        <form className='flex justify-center items-center flex-col w-2/3 gap-3' onSubmit={cadastrarNovoUsuario}>
+          <h2 className='text-slate-900 text-5xl'>{id ? 'Editar' : 'Cadastrar'}</h2>
+          <div className="flex flex-col w-full">
+            <label htmlFor="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Nome" className="border-2 border-slate-700 rounded p-2" value={usuario.nome} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+          </div>
+          <div className="flex flex-col w-full">
+            <label htmlFor="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Email" className="border-2 border-slate-700 rounded p-2" value={usuario.email} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+          </div>
+          <div className="flex flex-col w-full">
+            <label htmlFor="senha">Senha</label>
+            <input type="password" id="senha" name="senha" placeholder="Senha" className="border-2 border-slate-700 rounded p-2" value={usuario.senha} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+          </div>
+          <div className="flex flex-col w-full">
+            <label htmlFor="precoPagar">Preço a Pagar</label>
+            <input type="number" id="precoPagar" name="precoPagar" placeholder="Preço a Pagar" className="border-2 border-slate-700 rounded p-2" value={usuario.precoPagar} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+          </div>
+          <div className="flex flex-col w-full">
+           <label htmlFor="codigo">Código</label>
+           <input type="text" id="codigo" name="codigo" placeholder="Código" className="border-2 border-slate-700 rounded p-2" value={usuario.codigo} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+          </div>
+           <div className="flex flex-col w-full">
+            <label htmlFor="convenio">Convênio</label>
+            <input type="text" id="convenio" name="convenio" placeholder="Convênio" className="border-2 border-slate-700 rounded p-2" value={usuario.convenio} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+          </div>
+          <div className="flex flex-col w-full">
+            <label htmlFor="foto">Foto</label>
+            <input type="text" id="foto" name="foto" placeholder="Foto" className="border-2 border-slate-700 rounded p-2" value={usuario.foto} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+          </div>
+          <div className="flex justify-around w-full gap-3">
+            <button type="submit" className="rounded text-white bg-indigo-400 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600">
+              {id ? 'Atualizar' : 'Cadastrar'}
+            </button>
+            {id && (
+              <button type="button" className="rounded text-white bg-red-400 border-0 py-2 px-6 focus:outline-none hover:bg-red-600" onClick={deletar}>
+                Deletar
+              </button>
+            )}
+            <button type="button" className="rounded text-white bg-gray-400 border-0 py-2 px-6 focus:outline-none hover:bg-gray-600" onClick={retornar}>
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+          <RotatingLines
+            strokeColor="white"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="96"
+            visible={true}
+          />
+        </div>
+      )}
+    </>
+  );
+}
+
+export default Cadastro;
