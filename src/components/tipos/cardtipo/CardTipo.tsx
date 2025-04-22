@@ -11,16 +11,15 @@ function CardTipo({tipo}: CardTipoProps) {
             <header className='py-2 px-6 bg-blue-400 text-white font-bold text-2xl'>
                 Tipo: {tipo.nome}
             </header>
-            <p className='p-8 text-3xl bg-slate-200 h-full'>{tipo.descricao}</p>
             
             <div className="flex">
-                <Link to={`/editarcategoria/${tipo.id}`}
+                <Link to={`/editartipo/${tipo.id}`}
                     className='w-full text-slate-100 bg-cyan-600 hover:bg-cyan-900 
                     flex items-center justify-center py-2'>
                     <button>Editar</button>
                 </Link>
 
-                <Link to={`/deletarcategoria/${tipo.id}`} 
+                <Link to={`/deletartipo/${tipo.id}`} 
                     className='text-slate-100 bg-red-400 hover:bg-red-700 w-full 
                         flex items-center justify-center'>
                     <button>Deletar</button>

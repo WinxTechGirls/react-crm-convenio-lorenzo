@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { buscar, deletar } from "../../../services/Service"
-import { RotatingLines } from "react-loader-spinner"
 import Convenio from "../../../models/Convenio"
 
 function DeletarConvenio() {
@@ -51,13 +50,13 @@ function DeletarConvenio() {
             <h1 className='text-4xl text-center my-4'>Deletar Postagem</h1>
 
             <p className='text-center font-semibold mb-4'>
-                Você tem certeza de que deseja apagar a postagem a seguir?
+                Você tem certeza de que deseja apagar o convenio a seguir?
             </p>
 
             <div className='border flex flex-col rounded-2xl overflow-hidden justify-between'>
                 <header 
                     className='py-2 px-6 bg-indigo-600 text-white font-bold text-2xl'>
-                    Postagem
+                    Convenio
                 </header>
                 <div className="p-4">
                     <p className='text-xl h-full'>{convenio.nome}</p>

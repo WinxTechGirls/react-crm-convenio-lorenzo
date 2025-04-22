@@ -53,9 +53,8 @@ function DeletarTipo() {
             <div className='border flex flex-col rounded-2xl overflow-hidden justify-between'>
                 <header 
                     className='py-2 px-6 bg-indigo-600 text-white font-bold text-2xl'>
-                    Tipo
+                    Tipo de cobertura : {tipo.nome}
                 </header>
-                <p className='p-8 text-3xl bg-slate-200 h-full'>{tipo.descricao}</p>
                 <div className="flex">
                     <button 
                         className='text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2'

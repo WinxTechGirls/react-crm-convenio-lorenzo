@@ -2,6 +2,7 @@ import CardTipo from "../cardtipo/CardTipo";
 import { useState, useEffect } from "react";
 import Tipo from "../../../models/Tipo";
 import { buscar } from "../../../services/Service";
+import { Link } from "react-router-dom";
 
 function ListaTipos() {
 
@@ -22,6 +23,9 @@ function ListaTipos() {
     return (
         <>
             <div className="flex justify-center w-full my-4">
+                <Link to='/cadastrartipo' className='hover:underline'>Cadastrar Novo Tipo de Cobertura</Link>
+            </div>
+            <div className="flex justify-center w-full my-4">
                 <div className="container flex flex-col">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {tipos.map((tipo) => (
@@ -30,6 +34,7 @@ function ListaTipos() {
                     </div>
                 </div>
             </div>
+            
         </>
     );
 }

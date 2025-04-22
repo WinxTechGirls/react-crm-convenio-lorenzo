@@ -9,8 +9,7 @@ function FormTipo() {
 
     const [tipo, setTipo] = useState<Tipo>({
         id: null,
-        nome : '',
-        descricao: ''
+        nome : ''
     })
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -85,15 +84,6 @@ function FormTipo() {
                         name='nome'
                         className="border-2 border-slate-700 rounded p-2"
                         value={tipo.nome}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                    />
-                    <label htmlFor="descricao">Descrição do Tipo</label>
-                    <input
-                        type="text"
-                        placeholder="Descreva aqui seu Tipo"
-                        name='descricao'
-                        className="border-2 border-slate-700 rounded p-2"
-                        value={tipo.descricao}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                     />
                 </div>

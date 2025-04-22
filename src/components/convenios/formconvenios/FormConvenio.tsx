@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 import Convenio from "../../../models/Convenio";
 import Tipo from "../../../models/Tipo";
 import { buscar, atualizar, cadastrar } from "../../../services/Service";
@@ -12,8 +12,10 @@ function FormConvenio() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [tipos, setTipos] = useState<Tipo[]>([])
 
-    const [tipo, setTipo] = useState<Tipo>({ id: 0, descricao: '', })
+    const [tipo, setTipo] = useState<Tipo>({ id: 0, nome: '', })
     const [convenio, setConvenio] = useState<Convenio>({} as Convenio)
+
+    const { id } = useParams<{ id: string }>()
 
 
     async function buscarConvenioPorId(id: string) {
@@ -59,8 +61,7 @@ function FormConvenio() {
         setConvenio({
             ...convenio,
             [e.target.name]: e.target.value,
-            tipo: tipo,
-            usuario: usuario,
+            tipo: tipo
         });
     }
 
@@ -95,7 +96,6 @@ function FormConvenio() {
         retornar()
     }
 
-    const carregandoTipo = tipo.descricao === '';
 
     return (
         <div className="container flex flex-col mx-auto items-center">
@@ -162,7 +162,7 @@ function FormConvenio() {
 
                         {tipos.map((tipo) => (
                             <>
-                                <option value={tipo.id!} >{tipo.descricao}</option>
+                                <option value={tipo.id!} >{tipo.nome}</option>
                             </>
                         ))}
 

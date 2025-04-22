@@ -10,8 +10,8 @@ function Navbar() {
                 <Link to='/home' className="text-2xl font-semibold">Convênio Lorenzo</Link>
 
                     <div className='flex gap-4'>
-                        Convenios 
-                        Coberturas 
+                        <Link to='/convenios' className='hover:underline'>Convenios</Link>
+                        <Link to='/tipos' className='hover:underline'>Tipos de Coberturas</Link>
                         Cadastrar 
                     </div>
                 </div>

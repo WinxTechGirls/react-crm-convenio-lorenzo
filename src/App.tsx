@@ -4,7 +4,12 @@ import Footer from './components/footer/Footer'
 import Navbar from './components/navbar/Navbar'
 import Home from './pages/home/Home'
 import './App.css'
-import Cadastro from './pages/cadastro/Cadastro'
+import ListaConvenios from './components/convenios/listaconvenios/ListaConvenios'
+import ListaTipos from './components/tipos/listatipos/ListaTipos'
+import FormTipo from './components/tipos/formtipo/FormTipo'
+import DeletarTipo from './components/tipos/deletartipo/DeletarTipo'
+import FormConvenio from './components/convenios/formconvenios/FormConvenio'
+import DeletarConvenio from './components/convenios/deletarconvenios/DeletarConvenio'
 
 function App() {
   return (
@@ -15,6 +20,14 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/tipos" element={<ListaTipos />} />
+              <Route path="/cadastrartipo" element={<FormTipo />} />
+              <Route path="/editartipo/:id" element={<FormTipo />} />
+              <Route path="/deletartipo/:id" element={<DeletarTipo />} />
+              <Route path="/convenios" element={<ListaConvenios />} />
+              <Route path="/cadastrarconvenio" element={<FormConvenio />} />
+              {/* <Route path="/editarconvenio/:id" element={<FormConvenio />} />
+              <Route path="/deletarconvenio/:id" element={<DeletarConvenio />} /> */}
             </Routes>
           </div>
           <Footer />

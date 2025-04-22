@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { DNA } from "react-loader-spinner";
 import Convenio from "../../../models/Convenio";
 import { buscar } from "../../../services/Service";
-import { ToastAlerta } from "../../../utils/ToastAlerta";
-import CardConvenio from "./CardConvenio"; 
+import CardConvenio from "../cardconvenio/CardConvenio";
+import { Link } from "react-router-dom";
 
 function ListarConvenios() {
 const [convenios, setConvenios] = useState<Convenio[]>([]);
@@ -14,7 +14,7 @@ async function buscarConvenio() {
     try {
     await buscar('/convenios', setConvenios);
     } catch (error: any) {
-        ToastAlerta('Erro ao carregar convênios.', 'erro');
+        alert('Erro ao carregar convênios.');
     } finally {
     setIsLoading(false);
     }
@@ -39,19 +39,24 @@ if (isLoading) {
 }
 
 return (
-    <div className="flex justify-center w-full my-4">
-    <div className="container flex flex-col">
-        {convenios.length === 0 && !isLoading ? (
-        <p className="text-center text-xl">Nenhum convênio encontrado.</p>
-        ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {convenios.map((convenio) => (
-            <CardConvenio key={convenio.id} convenio={convenio} />
-            ))}
+    <>
+        <div className="flex justify-center w-full my-4">
+            <div className="container flex flex-col">
+                {convenios.length === 0 && !isLoading ? (
+                <p className="text-center text-xl">Nenhum convênio encontrado.</p>
+                ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {convenios.map((convenio) => (
+                    <CardConvenio key={convenio.id} convenio={convenio} />
+                    ))}
+                </div>
+                )}
+            </div>
         </div>
-        )}
-    </div>
-    </div>
+        <div>
+            <Link to='/cadastrarconvenio' className='hover:underline'>Cadastrar Novo Convenio</Link>
+        </div>
+    </>
 );
 }
 
