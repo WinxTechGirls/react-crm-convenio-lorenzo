@@ -2,44 +2,32 @@
 function Home() {
     return (
         <>
-            <div className="bg-blue-800 flex justify-center">
-                <div className='container grid grid-cols-2 text-white'>
-                    <div className="flex flex-col gap-4 items-center justify-center py-4">
-                        <h2 className='text-5xl font-extrabold'>
-                              Convênio Médico Lorenzo
-                        </h2>
-
-                        <p className='text-2xl'>
-                            Cuidando de você com excelência
-                        </p>
-                         
-                    </div>
-                </div>
-            </div>
-            <div className='flex items-start'>
-    <div className="flex flex-col gap-2">
-        <h3 className='text-3xl font-extrabold mt-30 mb-5 ml-30 text-blue-800'>
-            Cuide da sua saúde com o Convênio Lorenzo 
-        </h3>
-        <p className='text-xl ml-30 text-blue-800'>
-            O Convênio Médico Lorenzo é a escolha ideal para quem busca um <br />
-            atendimento de excelência e um cuidado especial para toda a família. <br /> Com uma rede credenciada que inclui os melhores hospitais, clínicas <br /> e profissionais de saúde, garantindo que você tenha acesso a uma <br />assistência médica completa e confiável sempre que precisar. <br /> Nossos benefícios incluem consultas em diversas especialidades <br /> médicas, exames laboratoriais e de imagem, além de atendimento <br />  de urgência e emergência 24 horas. Também internações hospitala_ <br />res e programas de prevenção e promoção à saúde, assegurando <br /> que você e seus entes queridos estejam sempre bem cuidados. <br />
-            <br />            
-    
-            <div className='font-extrabold text-blue-800'>Escolha o Convênio Médico Lorenzo e experimente a <br /> tranquilidade de saber que sua saúde está em boas mãos!</div>
-            
-            
-        </p>
+        <div className="produto flex justify-between gap-8">
+  <div className="conteudo w-1/2 flex flex-col items-start">
+    <div className="titulo">
+      <h1 className="text-3xl font-bold">Convênio Médico Lorenzo</h1>
     </div>
-    <div className='flex justify-center ml-5'>
-        <img
-            src="src\assets\imagens\lorenzo.jpg"
-            alt=""
-            className='w-1/2 '
-        />
-    </div>
+    <p>O Convênio Médico Lorenzo é uma opção de excelência para indivíduos e famílias que buscam atendimento médico de alta qualidade e cuidado personalizado. Com uma rede credenciada composta por hospitais, clínicas e profissionais de saúde renomados, oferecemos uma assistência médica completa e confiável, sempre que necessário.</p>
+    <div className="Beneficios flex flex-col gap-4">
+  <div className="tema bg-gray-100 p-4 rounded-lg shadow-md">
+    <h2 className="text-2xl font-bold">Atendimento de Excelência</h2>
+    <p>Com o Convênio Médico Lorenzo, você tem acesso a uma rede de hospitais e clínicas de excelência, com profissionais de saúde altamente qualificados e equipamentos de ponta.</p>
+  </div>
+  <div className="tema bg-gray-100 p-4 rounded-lg shadow-md">
+    <h2 className="text-2xl font-bold">Benefícios Abrangentes</h2>
+    <p>Nossos benefícios incluem consultas em diversas especialidades médicas, exames laboratoriais e de imagem, atendimento de urgência e emergência 24 horas, internações hospitalares e programas de prevenção e promoção à saúde.</p>
+  </div>
+  <div className="tema bg-gray-100 p-4 rounded-lg shadow-md">
+    <h2 className="text-2xl font-bold">Cuidado Personalizado</h2>
+    <p>Com o Convênio Médico Lorenzo, você e sua família podem desfrutar de uma assistência médica personalizada e humanizada, com acesso a profissionais e instalações de saúde de ponta.</p>
+  </div>
 </div>
-            
+</div>
+  <div className="">
+    <img src={'https://imgur.com/yiLq5Zy.jpg'} alt="Convênio Médico Lorenzo" className="w-125 hauto object-cover" />
+  </div>
+</div>
+
         </>
     )
 }
