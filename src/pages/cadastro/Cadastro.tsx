@@ -1,6 +1,6 @@
 
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import Usuario from '../../models/Usuario'
 import './Cadastro.css'
 import { RotatingLines } from 'react-loader-spinner'
@@ -24,16 +24,29 @@ function Cadastro() {
   })
 
   const [convenio, setConvenio] = useState<Convenio>({ 
-    id: 0,
+    id: null,
     nome: '',
     preco: 0,
     cobertura: '',
     acomodacao : '',
-    tipo: null,})
-
+    tipo: null})
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
-    setUsuario({ ...usuario, [e.target.name]: e.target.value })
+    const { name, value } = e.target;
+    const updatedUsuario = { ...usuario, [name]: value };
+
+    // Verifica se é o campo código e se contém "DESCONTO10"
+    if (name === 'codigo') {
+      const descontoAtivo = value === 'DESCONTO10';
+      const precoBase = usuario.convenio?.preco || 0;
+      
+      updatedUsuario.precoPagar = descontoAtivo 
+        ? precoBase * 0.9 // Aplica 10% de desconto
+        : precoBase; // Mantém o preço original
+    }
+
+    setUsuario(updatedUsuario);
+    console.log(usuario)
   }
 
   async function buscarConvenios() {
@@ -57,6 +70,7 @@ function Cadastro() {
       } else {
         await cadastrar(`/usuarios/cadastrar`, usuario, setUsuario)
         alert('Usuário cadastrado com sucesso!')
+        retornar()
       }
     } catch (error) {
       alert('Erro ao cadastrar/atualizar usuário!')
@@ -77,16 +91,28 @@ function Cadastro() {
   }
 
   async function buscarConvenioPorId(id: string) {
-          try {
-              await buscar(`/convenios/${id}`, setConvenio)
-          } catch (error: any) {
-              alert("Convenio não encontrado")
-          }
-      }
+    try {
+      await new Promise<void>((resolve) => {
+        buscar(`/convenios/${id}`, (dados: Convenio) => {
+          const descontoAtivo = usuario.codigo === 'DESCONTO10';
+          const precoComDesconto = descontoAtivo ? dados.preco * 0.9 : dados.preco;
+          
+          setUsuario({
+            ...usuario,
+            precoPagar: precoComDesconto,
+            convenio: dados
+          })
+          resolve()
+        })
+      })
+    } catch (error: any) {
+      alert("Convênio não encontrado")
+    }
+  }
 
-    useEffect(() => {
-      buscarConvenios()
-    }, [id])
+  useEffect(() => {
+    buscarConvenios()
+  }, [id])
 
   return (
     <>
@@ -115,7 +141,7 @@ function Cadastro() {
 
                 {convenios.map((convenio) => (
                     <>
-                        <option value={convenio.id!} >{convenio.nome}</option>
+                      <option value={convenio.id!} >{convenio.nome}</option>
                     </>
                 ))}
 
@@ -124,10 +150,16 @@ function Cadastro() {
           <div className="flex flex-col w-full">
            <label htmlFor="codigo">Código</label>
            <input type="text" id="codigo" name="codigo" placeholder="Código" className="border-2 border-slate-700 rounded p-2" value={usuario.codigo} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+           {usuario.codigo && usuario.codigo !== 'DESCONTO10' && (
+              <span className="text-red-600 text-sm">Cupom inválido</span>
+            )}
           </div>
           <div className="flex flex-col w-full">
             <label htmlFor="precoPagar">Preço a Pagar</label>
-            <input type="number" id="precoPagar" name="precoPagar" placeholder="Preço a Pagar" className="border-2 border-slate-700 rounded p-2" value={usuario.precoPagar} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+            <input readOnly type="number" id="precoPagar" name="precoPagar" placeholder="Preço a Pagar" className="border-2 border-slate-700 rounded p-2" value={usuario.precoPagar} onChange={(e) => buscarConvenioPorId(e.currentTarget.value)} />
+            {usuario.codigo === 'DESCONTO10' && (
+            <span className="text-green-600 text-sm">Desconto aplicado!</span>
+          )}
           </div>
           <div className="flex flex-col w-full">
             <label htmlFor="foto">Foto</label>
