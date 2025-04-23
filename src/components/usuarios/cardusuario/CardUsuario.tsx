@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Usuario from "../../../models/Usuario"
 
 interface CardUsuarioProps {
@@ -26,12 +27,18 @@ function CardUsuario({ usuario }: CardUsuarioProps) {
                 </div>
             </div>
             <div className="flex">
-                <button>Editar</button>
-                <button>Deletar</button>
-            </div>
-        </div>
-
-	)
+                
+            <Link to={`/editarusuario/${usuario.id}`} className='w-full text-slate-100 bg-indigo-400 hover:bg-indigo-800 flex items-center justify-center py-2'>
+          <button>Editar</button>
+        </Link>
+        <Link to={`/deletarusuario/${usuario.id}`} className='text-slate-100 bg-red-400 hover:bg-red-700 w-full flex items-center justify-center'>
+          <button>Deletar</button>
+        </Link>
+      </div>
+    </div>
+  );
 }
 
-export default CardUsuario
+export default CardUsuario;     
+                
+                

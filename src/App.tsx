@@ -12,6 +12,8 @@ import FormConvenio from './components/convenios/formconvenios/FormConvenio'
 import DeletarConvenio from './components/convenios/deletarconvenios/DeletarConvenio'
 import Cadastro from './pages/cadastro/Cadastro'
 import ListaUsuarios from './components/usuarios/listausuarios/ListaUsuarios'
+import FormUsuario from './components/usuarios/formusuario/FormUsuario'
+import DeletarUsuario from './components/usuarios/deletarusuario/DeletarUsuario'
 
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
               <Route path="/editarconvenio/:id" element={<FormConvenio />} />
               <Route path="/deletarconvenio/:id" element={<DeletarConvenio />} />
               <Route path="/usuarios" element={<ListaUsuarios />} />
+              <Route path="/editarusuario/:id" element={<FormUsuario />} />
+              <Route path="/deletarusuario/:id" element={<DeletarUsuario />} />
             </Routes>
           </div>
           <Footer />
