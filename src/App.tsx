@@ -10,6 +10,9 @@ import FormTipo from './components/tipos/formtipo/FormTipo'
 import DeletarTipo from './components/tipos/deletartipo/DeletarTipo'
 import FormConvenio from './components/convenios/formconvenios/FormConvenio'
 import DeletarConvenio from './components/convenios/deletarconvenios/DeletarConvenio'
+import Cadastro from './pages/cadastro/Cadastro'
+import ListaUsuarios from './components/usuarios/listausuarios/ListaUsuarios'
+
 
 function App() {
   return (
@@ -20,14 +23,16 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/cadastro" element={<Cadastro />} />
               <Route path="/tipos" element={<ListaTipos />} />
               <Route path="/cadastrartipo" element={<FormTipo />} />
               <Route path="/editartipo/:id" element={<FormTipo />} />
               <Route path="/deletartipo/:id" element={<DeletarTipo />} />
               <Route path="/convenios" element={<ListaConvenios />} />
               <Route path="/cadastrarconvenio" element={<FormConvenio />} />
-              {/* <Route path="/editarconvenio/:id" element={<FormConvenio />} />
-              <Route path="/deletarconvenio/:id" element={<DeletarConvenio />} /> */}
+              <Route path="/editarconvenio/:id" element={<FormConvenio />} />
+              <Route path="/deletarconvenio/:id" element={<DeletarConvenio />} />
+              <Route path="/usuarios" element={<ListaUsuarios />} />
             </Routes>
           </div>
           <Footer />

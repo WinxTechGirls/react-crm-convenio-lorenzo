@@ -1,27 +1,27 @@
 import { useEffect, useState } from "react";
 import { DNA } from "react-loader-spinner";
-import Convenio from "../../../models/Convenio";
+import Usuario from "../../../models/Usuario";
 import { buscar } from "../../../services/Service";
-import CardConvenio from "../cardconvenio/CardConvenio";
+import CardUsuario from "../cardusuario/CardUsuario";
 import { Link } from "react-router-dom";
 
-function ListarConvenios() {
-const [convenios, setConvenios] = useState<Convenio[]>([]);
+function ListaUsuarios() {
+const [usuarios, setUsuarios] = useState<Usuario[]>([]);
 const [isLoading, setIsLoading] = useState<boolean>(true);
 
-async function buscarConvenio() {
+async function buscarUsuario() {
     setIsLoading(true);
     try {
-    await buscar('/convenios', setConvenios);
+    await buscar('/usuarios/all', setUsuarios);
     } catch (error: any) {
-        alert('Erro ao carregar convênios.');
+        alert('Erro ao carregar usuários.');
     } finally {
     setIsLoading(false);
     }
 }
 
 useEffect(() => {
-    buscarConvenio();
+    buscarUsuario();
   }, []); // 
 
 if (isLoading) {
@@ -41,16 +41,16 @@ if (isLoading) {
 return (
     <>
         <div className="flex justify-center w-full my-4">
-            <Link to='/cadastrarconvenio' className='hover:underline'>Cadastrar Novo Convenio</Link>
+            <Link to='/cadastro' className='hover:underline'>Cadastrar Novo Usuario</Link>
         </div>
         <div className="flex justify-center w-full my-4">
             <div className="container flex flex-col">
-                {convenios.length === 0 && !isLoading ? (
-                <p className="text-center text-xl">Nenhum convênio encontrado.</p>
+                {usuarios.length === 0 && !isLoading ? (
+                <p className="text-center text-xl">Nenhum usuário encontrado.</p>
                 ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {convenios.map((convenio) => (
-                    <CardConvenio key={convenio.id} convenio={convenio} />
+                    {usuarios.map((usuario) => (
+                    <CardUsuario key={usuario.id} usuario={usuario} />
                     ))}
                 </div>
                 )}
@@ -61,4 +61,4 @@ return (
 );
 }
 
-export default ListarConvenios;
+export default ListaUsuarios;
