@@ -7,21 +7,19 @@ interface CardTipoProps {
 
 function CardTipo({tipo}: CardTipoProps) {
   return (
-    <div className='flex flex-col rounded-2xl overflow-hidden justify-between'>
-            <header className='py-2 px-6 bg-blue-400 text-white font-bold text-2xl'>
+    <div className='border border-gray-300 rounded-lg flex flex-col overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg'>
+            <header className= 'p-4 bg-gray-50 text-lg font-semibold text-gray-700'>
                 Tipo: {tipo.nome}
             </header>
             
-            <div className="flex">
+            <div className="flex justify-between p-4 bg-gray-100">
                 <Link to={`/editartipo/${tipo.id}`}
-                    className='w-full text-slate-100 bg-cyan-600 hover:bg-cyan-900 
-                    flex items-center justify-center py-2'>
+                    className='bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition'>
                     <button>Editar</button>
                 </Link>
 
                 <Link to={`/deletartipo/${tipo.id}`} 
-                    className='text-slate-100 bg-red-400 hover:bg-red-700 w-full 
-                        flex items-center justify-center'>
+                    className='bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition'>
                     <button>Deletar</button>
                 </Link>
             </div>

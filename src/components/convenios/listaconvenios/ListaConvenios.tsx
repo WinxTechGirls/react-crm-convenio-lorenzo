@@ -41,7 +41,9 @@ if (isLoading) {
 return (
     <>
         <div className="flex justify-center w-full my-4">
-            <Link to='/cadastrarconvenio' className='hover:underline'>Cadastrar Novo Convenio</Link>
+            <Link to='/cadastrarconvenio' className='hover:underline'>
+                <button className='bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition'>Cadastrar Novo Convênio</button>
+            </Link>
         </div>
         <div className="flex justify-center w-full my-4">
             <div className="container flex flex-col">

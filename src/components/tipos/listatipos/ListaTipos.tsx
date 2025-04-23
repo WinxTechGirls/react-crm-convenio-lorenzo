@@ -23,7 +23,9 @@ function ListaTipos() {
     return (
         <>
             <div className="flex justify-center w-full my-4">
-                <Link to='/cadastrartipo' className='hover:underline'>Cadastrar Novo Tipo de Cobertura</Link>
+                <Link to='/cadastrartipo' className='hover:underline'>
+                    <button className='bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition'>Cadastrar Novo Tipo de Cobertura</button>
+                </Link>
             </div>
             <div className="flex justify-center w-full my-4">
                 <div className="container flex flex-col">

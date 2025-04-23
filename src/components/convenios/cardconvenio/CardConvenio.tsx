@@ -7,27 +7,26 @@ interface CardConvenioProps {
 
 function CardConvenio({ convenio }: CardConvenioProps) {
     return (
-        <div className='border-slate-900 border 
-            flex flex-col rounded overflow-hidden justify-between'>
+
+        <div className='border border-gray-300 rounded-lg flex flex-col overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg'>
                 
             <div>
-                <div className='p-4 '>
+                <div className='p-4 bg-gray-50'>
                     <h4 className='text-lg font-semibold uppercase'>{convenio.nome}</h4>
-                    <p>Cobertura: {convenio.cobertura}</p>
-                    <p>Acomadação: {convenio.acomodacao}</p>
-                    <p>Preço: {convenio.preco}</p>
+                    <div className='text-gray-700'>
+                        <p>Cobertura: {convenio.cobertura}</p>
+                        <p>Acomadação: {convenio.acomodacao}</p>
+                        <p>Preço: {convenio.preco}</p>
+                    </div>
+
                 </div>
             </div>
-            <div className="flex">
-                <Link to={`/editarconvenio/${convenio.id}`}
-                    className='w-full text-slate-100 bg-indigo-400 hover:bg-indigo-800 
-                    flex items-center justify-center py-2'>
-                    <button>Editar</button>
+            <div className="flex justify-between p-4 bg-gray-100">
+                <Link to={`/editarconvenio/${convenio.id}`}>
+                    <button className='bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition'>Editar</button>
                 </Link>
-                <Link to={`/deletarconvenio/${convenio.id}`} 
-                    className='text-white bg-red-400 
-                    hover:bg-red-700 w-full flex items-center justify-center'>
-                    <button>Deletar</button>
+                <Link to={`/deletarconvenio/${convenio.id}`} >
+                    <button className='bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition'>Deletar</button>
                 </Link>
             </div>
         </div>
